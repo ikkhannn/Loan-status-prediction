@@ -1,0 +1,11 @@
+Outliers in Current Loan Amount
+Remove/fill  null values in Credit score
+Remove/fill null values in Annual income
+Convert NA to 0 in Month since last delinquent
+Convert Na to 0 in Bankruptcies 
+Remove NA of Tax liens
+
+
+ISSUE:
+NA both in test and train
+(deal with lightgbm)

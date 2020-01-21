@@ -18,8 +18,8 @@ sapply(mydata_train_raw,class)
 ##remove loan.id and customer.id
 
 drops <- c("Customer.ID")
-mydata_train_raw <-mydata_train_raw[ , !(colnames_train %in% drops)]
-mydata_test_raw <- mydata_test_raw[ , !(colnames_test %in% drops)]
+mydata_train_raw <-mydata_train_raw[ , !(names(mydata_train_raw) %in% drops)]
+mydata_test_raw <- mydata_test_raw[ , !(names(mydata_train_raw) %in% drops)]
 
 
 # see number of missing values in each column
@@ -234,24 +234,208 @@ df1$Loan.Status=ifelse(df1$Loan.Status== 'Charged Off', 1,0)
 
 
 
+
 #Normalization
 
+library(clusterSim)
+normFunc=data.Normalization(df1, type="n4", normalization="column")
+df1N=as.data.frame(lapply(1, function(x) normFunc))
 
 
 
-##Lets check variables which are in raw_train set but not in raw_test
-
-setdiff (colnames_train, colnames_test)
-
-
-
-##str(mydata_train_raw)
-
-## for checking summary but in a more oganized manner
-skim(mydata_train_raw)
-
-skim(mydata_test_raw)
+#building model
+library(caret)
+set.seed(1)
+trainIndis=createDataPartition(y=df1$Loan.Status, p=.90, list=FALSE)
+train=df1[trainIndis,]
+test=df1[-trainIndis,]
 
 
+#num_train$LoanStatus=ifelse(num_train$LoanStatus== 1,'Charged Off','Fully Paid')
+#test$LoanStatus=ifelse(test$LoanStatus== 1,'Charged Off','Fully Paid')
+
+
+#train$Loan.Status <- as.factor(train$Loan.Status)
+
+
+str(train)
+
+
+
+
+library(tree)
+library(ISLR)
+
+
+## Convert all columns to num
+
+num_train<-  train[,]
+
+#num_train$`df1Long Term`<- as.numeric(num_train$`df1Long Term`)
+#num_train$`df1Short Term`<- as.numeric(num_train$`df1Short Term`)
+#num_train$`df1HaveMortgage`<- as.numeric(num_train$`df1HaveMortgage`)
+#num_train$`df1Home Mortgage`<- as.numeric(num_train$`df1Home Mortgage`)
+#num_train$`df1Own Home`<- as.numeric(num_train$`df1Own Home`)
+#num_train$`df1Rent`<- as.numeric(num_train$`df1Rent`)
+#num_train$`df1Business Credit`<- as.numeric(num_train$`df1Business Credit`)
+#num_train$`df1Consumer  Credit`<- as.numeric(num_train$`df1Consumer  Credit`)
+#num_train$`df1Debt Consolidation`<- as.numeric(num_train$`df1Debt Consolidation`)
+#num_train$`df1Mortgage Credit`<- as.numeric(num_train$`df1Mortgage Credit`)
+#num_train$`df1Other`<- as.numeric(num_train$`df1Other`)
+#num_train$`df1Vehicle Credit`<- as.numeric(num_train$`df1Vehicle Credit`)
+#num_train$`df1>=10 years`<- as.numeric(num_train$`df1>=10 years`)
+#num_train$`df10-4 years`<- as.numeric(num_train$`df10-4 years`)
+#num_train$`df15-9 years`<- as.numeric(num_train$`df15-9 years`)
+
+
+## Change column names 
+colnames(num_train)[which(names(num_train) == "Loan.Status")] <- "LoanStatus"
+colnames(num_train)[which(names(num_train) == "Current.Loan.Amount")] <- "CurrentLoanAmount"
+
+colnames(num_train)[which(names(num_train) == "Credit.Score")] <- "CreditScore"
+
+colnames(num_train)[which(names(num_train) == "Annual.Income")] <- "AnnualIncome"
+
+colnames(num_train)[which(names(num_train) == "Monthly.Debt")] <- "MonthlyDebt"
+
+colnames(num_train)[which(names(num_train) == "Years.of.Credit.History")] <- "YearsofCreditHistory"
+
+colnames(num_train)[which(names(num_train) == "Months.since.last.delinquent")] <- "Monthssincelastdelinquent"
+
+colnames(num_train)[which(names(num_train) == "Number.of.Open.Accounts")] <- "NumberofOpenAccounts"
+
+colnames(num_train)[which(names(num_train) == "Number.of.Credit.Problems")] <- "NumberofCreditProblems"
+
+colnames(num_train)[which(names(num_train) == "Current.Credit.Balance")] <- "CurrentCreditBalance"
+
+colnames(num_train)[which(names(num_train) == "Maximum.Open.Credit")] <- "MaximumOpenCredit"
+
+
+colnames(num_train)[which(names(num_train) == "Tax.Liens")] <- "TaxLiens"
+
+colnames(num_train)[which(names(num_train) == "df1Long Term")] <- "dfLongTerm"
+
+colnames(num_train)[which(names(num_train) == "df1Short Term")] <- "dfShortTerm"
+
+colnames(num_train)[which(names(num_train) == "df1HaveMortgage")] <- "dfHaveMortgage"
+colnames(num_train)[which(names(num_train) == "df1Home Mortgage")] <- "dfHomeMortgage"
+
+colnames(num_train)[which(names(num_train) == "df1Own Home")] <- "dfOwnHome"
+
+colnames(num_train)[which(names(num_train) == "df1Rent")] <- "dfRent"
+
+colnames(num_train)[which(names(num_train) == "df1Business Credit")] <- "dfBusinessCredit"
+colnames(num_train)[which(names(num_train) == "df1Consumer  Credit")] <- "dfConsumerCredit"
+colnames(num_train)[which(names(num_train) == "df1Debt Consolidation")] <- "dfDebtConsolidation"
+colnames(num_train)[which(names(num_train) == "df1Mortgage Credit")] <- "dfMortgageCredit"
+colnames(num_train)[which(names(num_train) == "df1Other")] <- "dfOther"
+colnames(num_train)[which(names(num_train) == "df1Vehicle Credit")] <- "dfVehicleCredit"
+colnames(num_train)[which(names(num_train) == "df1>=10 years")] <- "dfgreaterthantenyears"
+colnames(num_train)[which(names(num_train) == "df10-4 years")] <- "dfzerotofouryears"
+colnames(num_train)[which(names(num_train) == "df15-9 years")] <- "dffivetonineyears"
+
+
+
+colnames(test)[which(names(test) == "Loan.Status")] <- "LoanStatus"
+colnames(test)[which(names(test) == "Current.Loan.Amount")] <- "CurrentLoanAmount"
+
+colnames(test)[which(names(test) == "Credit.Score")] <- "CreditScore"
+
+colnames(test)[which(names(test) == "Annual.Income")] <- "AnnualIncome"
+
+colnames(test)[which(names(test) == "Monthly.Debt")] <- "MonthlyDebt"
+
+colnames(test)[which(names(test) == "Years.of.Credit.History")] <- "YearsofCreditHistory"
+
+colnames(test)[which(names(test) == "Months.since.last.delinquent")] <- "Monthssincelastdelinquent"
+
+colnames(test)[which(names(test) == "Number.of.Open.Accounts")] <- "NumberofOpenAccounts"
+
+colnames(test)[which(names(test) == "Number.of.Credit.Problems")] <- "NumberofCreditProblems"
+
+colnames(test)[which(names(test) == "Current.Credit.Balance")] <- "CurrentCreditBalance"
+
+colnames(test)[which(names(test) == "Maximum.Open.Credit")] <- "MaximumOpenCredit"
+
+
+colnames(test)[which(names(test) == "Tax.Liens")] <- "TaxLiens"
+
+colnames(test)[which(names(test) == "df1Long Term")] <- "dfLongTerm"
+
+colnames(test)[which(names(test) == "df1Short Term")] <- "dfShortTerm"
+
+colnames(test)[which(names(test) == "df1HaveMortgage")] <- "dfHaveMortgage"
+colnames(test)[which(names(test) == "df1Home Mortgage")] <- "dfHomeMortgage"
+
+colnames(test)[which(names(test) == "df1Own Home")] <- "dfOwnHome"
+
+colnames(test)[which(names(test) == "df1Rent")] <- "dfRent"
+
+colnames(test)[which(names(test) == "df1Business Credit")] <- "dfBusinessCredit"
+colnames(test)[which(names(test) == "df1Consumer  Credit")] <- "dfConsumerCredit"
+colnames(test)[which(names(test) == "df1Debt Consolidation")] <- "dfDebtConsolidation"
+colnames(test)[which(names(test) == "df1Mortgage Credit")] <- "dfMortgageCredit"
+colnames(test)[which(names(test) == "df1Other")] <- "dfOther"
+colnames(test)[which(names(test) == "df1Vehicle Credit")] <- "dfVehicleCredit"
+colnames(test)[which(names(test) == "df1>=10 years")] <- "dfgreaterthantenyears"
+colnames(test)[which(names(test) == "df10-4 years")] <- "dfzerotofouryears"
+colnames(test)[which(names(test) == "df15-9 years")] <- "dffivetonineyears"
+
+
+
+#convert to factors because they are in 0 and 1 and these are numbers hence model will want factors
+num_train$LoanStatus=ifelse(num_train$LoanStatus== 1,'Charged Off','Fully Paid')
+test$LoanStatus=ifelse(test$LoanStatus== 1,'Charged Off','Fully Paid')
+
+num_train$LoanStatus=as.factor(num_train$LoanStatus)
+test$LoanStatus=as.factor(test$LoanStatus)
+
+library(e1071)
+
+
+#classifier = naiveBayes(LoanStatus~., num_train)
+#predicted = predict(classifier, test_x)
+#confm=table(test[,which(names(test) %in% c("LoanStatus"))], predicted)
+#recall_accuracy(test[,which(names(test) %in% c("LoanStatus"))], predicted)
+
+#accuracy <- sum(diag(confm))/sum(confm)
+
+
+test_x<- test[,-which(names(test) %in% c("LoanStatus"))]
+test_y<- test[,which(names(test) %in% c("LoanStatus"))]
+
+
+#create model
+tree.my = tree(num_train$LoanStatus~., data=num_train)
+#plot decision tree
+plot(tree.my)
+text(tree.my, pretty=0)
+
+#prediction based on test set
+tree.pred = predict(tree.my, test_x,type='class')
+tree.pred
+
+#confusion matrix
+confMat <- table(test_y,tree.pred)
+
+#accuracy
+accuracy <- sum(diag(confMat))/sum(confMat)
+accuracy
+
+
+#pruning model
+prune.my = prune.misclass(tree.my, best = 5)
+#plot pruned decision tree
+plot(prune.my)
+text(prune.my, pretty=10)
+
+#predict
+tree.pred = predict(prune.my, test, type="class")
+
+confMat <- table(test_y,tree.pred)
+
+accuracy <- sum(diag(confMat))/sum(confMat)
+
+accuracy
 
 

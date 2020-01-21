@@ -2,21 +2,6 @@ library(skimr)
 library(tidyverse)
 library(stringr)
 library(ggplot2)
-##Load dataset
-mydata_train_raw <- read.csv("C:/Users/me/Desktop/bank loan status prediction/my-dataset/credit_train.csv", header=T)
-mydata_test_raw <- read.csv("C:/Users/me/Desktop/bank loan status prediction/my-dataset/credit_test.csv", header=T)
-##colnames_train <- names(mydata_train_raw)
-##colnames_test <- names(mydata_test_raw)
-
-## Let's check our data , what type of data it is, and what are the variations? 
-
-str(mydata_train_raw)
-
-#check type of columns
-sapply(mydata_train_raw,class)
-
-##remove loan.id and customer.id
-
 drops <- c("Customer.ID")
 mydata_train_raw <-mydata_train_raw[ , !(names(mydata_train_raw) %in% drops)]
 mydata_test_raw <- mydata_test_raw[ , !(names(mydata_train_raw) %in% drops)]
@@ -403,40 +388,3 @@ library(e1071)
 
 test_x<- test[,-which(names(test) %in% c("LoanStatus"))]
 test_y<- test[,which(names(test) %in% c("LoanStatus"))]
-
-
-#create model
-tree.my = tree(num_train$LoanStatus~., data=num_train)
-#plot decision tree
-plot(tree.my)
-text(tree.my, pretty=0)
-
-#prediction based on test set
-tree.pred = predict(tree.my, test_x,type='class')
-tree.pred
-
-#confusion matrix
-confMat <- table(test_y,tree.pred)
-
-#accuracy
-accuracy <- sum(diag(confMat))/sum(confMat)
-accuracy
-
-
-#pruning model
-prune.my = prune.misclass(tree.my, best = 5)
-#plot pruned decision tree
-plot(prune.my)
-text(prune.my, pretty=10)
-
-#predict
-tree.pred = predict(prune.my, test, type="class")
-
-confMat <- table(test_y,tree.pred)
-
-accuracy <- sum(diag(confMat))/sum(confMat)
-
-accuracy
-
-
-

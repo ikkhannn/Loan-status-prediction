@@ -17,20 +17,25 @@ Let's plot a bar plot for visualizing the count of those people who were charged
 
 Now let's visualize the count of people by their job history.
 
-![This tell's us that most of the people who took loan from the bank were mostly those who had spent more than 10 years in current job.](https://github.com/ikkhannn/Loan-status-prediction/blob/master/images/Rplot2.png)
-
+![](https://github.com/ikkhannn/Loan-status-prediction/blob/master/images/Rplot2.png)
+<br />
+This tell's us that most of the people who took loan from the bank were mostly those who had spent more than 10 years in current job.
 
 Let's check the proportion of people who were charged off and who weren't.
-![This tells us the same thing which we saw in the previous plot but the additional thing is that those were charged off, and those who weren't , both had the most proportion when the job years they spent was more than 10.](https://github.com/ikkhannn/Loan-status-prediction/blob/master/images/Rplot3.png)
+![](https://github.com/ikkhannn/Loan-status-prediction/blob/master/images/Rplot3.png)
+<br />
+This tells us the same thing which we saw in the previous plot but the additional thing is that those were charged off, and those who weren't , both had the most proportion when the job years they spent was more than 10.
 
 
 
 Let's see visualize the proportion of charged off and fully paid loans when we group by short term and long term loans.
-![This describes, that loan which were short term were more likely to be fully paid.](https://github.com/ikkhannn/Loan-status-prediction/blob/master/images/Rplot4.png)
-
+![](https://github.com/ikkhannn/Loan-status-prediction/blob/master/images/Rplot4.png)
+<br />
+This describes, that loan which were short term were more likely to be fully paid.
 
 Let's see for what purpose were the loans taken. Seperately by long term and short term. And whether charged off or fully paid.
 ![Image description](https://github.com/ikkhannn/Loan-status-prediction/blob/master/images/Rplot5.png)
+<br/>
 We can see that the loans were mostly taken for the purpose of buying a house.
 
 

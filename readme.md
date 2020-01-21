@@ -34,6 +34,7 @@ Let's see visualize the proportion of charged off and fully paid loans when we g
 This describes, that loan which were short term were more likely to be fully paid.
 
 Let's see for what purpose were the loans taken. Seperately by long term and short term. And whether charged off or fully paid.
+<br/>
 ![Image description](https://github.com/ikkhannn/Loan-status-prediction/blob/master/images/Rplot5.png)
 <br/>
 We can see that the loans were mostly taken for the purpose of buying a house.

@@ -40,14 +40,14 @@ We can see that the loans were mostly taken for the purpose of buying a house.
 
 
 ## DATA CLEANING AND PREPARATION
-The data contains alot of missing values. 
-We will split the data by loan status type and then take mean of every column and fill those n/a values.
-Changed the column names.
-Applied n4 normalization.
-Rounded values off.
+The data contains alot of missing values. <br />
+We will split the data by loan status type and then take mean of every column and fill those n/a values.<br />
+Changed the column names.<br />
+Applied n4 normalization.<br />
+Rounded values off.<br />
 
 ## MODELLING
-The Algorithm which i have used is "decision trees".
-Splitted the data into 90 % training and 10 % testing.
-This produced results with 92 % accuracy.
+The Algorithm which i have used is "decision trees".<br />
+Splitted the data into 90 % training and 10 % testing.<br />
+This produced results with 92 % accuracy.<br />
 

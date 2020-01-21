@@ -17,17 +17,17 @@ Let's plot a bar plot for visualizing the count of those people who were charged
 
 Now let's visualize the count of people by their job history.
 
-![Image description](https://github.com/ikkhannn/Loan-status-prediction/blob/master/images/Rplot2.png)
-This tell's us that most of the people who took loan from the bank were mostly those who had spent more than 10 years in current job.
+![This tell's us that most of the people who took loan from the bank were mostly those who had spent more than 10 years in current job.](https://github.com/ikkhannn/Loan-status-prediction/blob/master/images/Rplot2.png)
+
 
 Let's check the proportion of people who were charged off and who weren't.
-![Image description](https://github.com/ikkhannn/Loan-status-prediction/blob/master/images/Rplot3.png)
-This tells us the same thing which we saw in the previous plot but the additional thing is that those were charged off, and those who weren't , both had the most proportion when the job years they spent was more than 10.
+![This tells us the same thing which we saw in the previous plot but the additional thing is that those were charged off, and those who weren't , both had the most proportion when the job years they spent was more than 10.](https://github.com/ikkhannn/Loan-status-prediction/blob/master/images/Rplot3.png)
+
 
 
 Let's see visualize the proportion of charged off and fully paid loans when we group by short term and long term loans.
-![Image description](https://github.com/ikkhannn/Loan-status-prediction/blob/master/images/Rplot4.png)
-This describes, that loan which were short term were more likely to be fully paid.
+![This describes, that loan which were short term were more likely to be fully paid.](https://github.com/ikkhannn/Loan-status-prediction/blob/master/images/Rplot4.png)
+
 
 Let's see for what purpose were the loans taken. Seperately by long term and short term. And whether charged off or fully paid.
 ![Image description](https://github.com/ikkhannn/Loan-status-prediction/blob/master/images/Rplot5.png)
